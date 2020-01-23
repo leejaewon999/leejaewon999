@@ -1,5 +1,7 @@
 package cgv;
 
+import java.util.Scanner;
+
 import javax.swing.JOptionPane;
 
 public class NEW_CGV {
@@ -38,19 +40,24 @@ public class NEW_CGV {
 
 	public static void main(String[] args) {
 		
+				
 		String helloMsg = "★★★  C G V ★★★\n\n";
-		String menuMsg = "1. 예매하기\n2. 구매하기\n3. 포인트 조회 \n4. 현재 잔액\n5. 나가기\n\n";
+		String menuMsg = "1. 예매하기\n2. 구매하기\n3. 포인트 조회 \n4. 현금 충전\n5. 나가기\n\n";
 		String films = "1.라이온킹(08:00)\n2.스파이더맨(12:00)\n3.사일런스(23:00)[청소년 관람 불가]\n4.뒤로가기\n\n"; 
 		String ageMsg = "[청소년 구매 불가 상풍]\n나이를 입력하세요\n";		
+		String cha = "충전할 금액을 입력하세요\n";
 		String product = "1.팝콘 L\n2.콜라\n3.맥주\n4.뒤로 가기\n\n";
-		String balance = "현재 잔액";
+		String balance = "1.현금 조회\n2.현금 충전\n3.뒤로 가기\n\n";
 		
 		
 		int choice = 0;         // 목록
 		int money = 10_000;     // 잔액 
+		int charge;
 		int point = 0;          //
 		int t_price = 10_000;   // 영화표 값
 		int pd = 5_000;         //상품
+		
+		int[] tmp = new int[10000];
 		
 		NEW_CGV c = new NEW_CGV();       // 메서드에 있다
 		
@@ -88,9 +95,12 @@ public class NEW_CGV {
 						money -= t_price;                 // 잔액으로만 티켓 구매
 						point +=(int)(t_price * 1);        //포인트 누적
 					}
-					JOptionPane.showMessageDialog(null, "현재 잔액 : " + money + "원");				
+					JOptionPane.showMessageDialog(null, "현재 잔액 : " + money + "원");	
+					JOptionPane.showMessageDialog(null, "잔여 포인트 : " + point + "점");
 				}
-				break;
+				JOptionPane.showMessageDialog(null, "메인 메뉴로 이동합니다.");
+				continue;	
+//				break;
 								
 //구매하기 영역	
 			case 2:
@@ -142,18 +152,51 @@ public class NEW_CGV {
 						point +=(int)(pd * 0.1);   //포인트 누적
 					}				
 				JOptionPane.showMessageDialog(null, "현재 잔액 : " + money + "원");
-				break;	
+				JOptionPane.showMessageDialog(null, "잔여 포인트 : " + point + "점");
+				JOptionPane.showMessageDialog(null, "메인 메뉴로 이동합니다.");
+				continue;	
 				
 // 포인트 조회 영역
 			case 3:
 				JOptionPane.showMessageDialog(null, "잔여 포인트 :" + point + "점");
-				break;	
+				JOptionPane.showMessageDialog(null, "메인 메뉴로 이동합니다.");
+				continue;
 				
-// 현재 잔액 영역				
+				
+// 현금 충전 영역				
 			case 4:
-				JOptionPane.showMessageDialog(null, "현재 잔액 :" + money + "원");
-				break;
-			}
+				choice = Integer.parseInt(JOptionPane.showInputDialog(balance));
+				if(choice == 5) break;
+				
+				if(choice == 1) {
+					JOptionPane.showMessageDialog(null, "현재 조회");
+					JOptionPane.showMessageDialog(null, "현재 잔액 :" + money + "원");
+					JOptionPane.showMessageDialog(null, "메인 메뉴로 이동합니다.");
+					continue;
+				}
+				else if(choice == 2) {
+					charge = Integer.parseInt(JOptionPane.showInputDialog(cha));
+									
+					
+					if (money >= 0) {
+					}
+						if(charge > 0) {    //포인트 보다 크니?
+							if((charge + money) >= 0) {
+							money += charge;   
+							JOptionPane.showMessageDialog(null, "현금 충전: " + money + "원");
+						}
+												
+						}else {
+							JOptionPane.showMessageDialog(null, "메인 메뉴로 이동합니다.");
+							continue;	
+						}					
+				}
+				JOptionPane.showMessageDialog(null, "메인 메뉴로 이동합니다.");
+				continue;	
+			}									
+			break;
 		}
 	}
 }
+
+
